@@ -13,5 +13,4 @@ variable "resource_group" {
 
 variable "vnets" {
   description = "Azure Virtual Network Composed List with Subnets"
-  default     = []
 }
