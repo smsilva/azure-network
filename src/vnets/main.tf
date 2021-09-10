@@ -44,9 +44,8 @@ module "subnets" {
   for_each = local.subnets_map
   source   = "../subnet"
 
-  platform_instance_name = var.platform_instance_name
-  name                   = each.value.name
-  cidrs                  = [each.value.cidr]
-  vnet                   = module.vnets[each.value.vnet.name].vnet
-  resource_group         = var.resource_group
+  name           = each.value.name
+  cidrs          = [each.value.cidr]
+  vnet           = module.vnets[each.value.vnet.name].vnet
+  resource_group = var.resource_group
 }

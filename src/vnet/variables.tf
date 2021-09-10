@@ -13,10 +13,15 @@ variable "cidr" {
   description = "Azure Virtual Network CIDR. Ex: 10.0.0.0/8"
 }
 
-variable "resource_group" {
-  type = object({
-    name     = string
-    location = string
-  })
-  description = "Azure Resource Group for Virtual Network"
+variable "location" {
+  type        = string
+  description = "Azure Location for Virtual Network"
+}
+
+variable "subnets" {
+  type = list(object({
+    cidir = string
+    name  = string
+  }))
+  description = "Subnet Object List"
 }

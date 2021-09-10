@@ -3,6 +3,8 @@ provider "azurerm" {
 }
 
 locals {
+  platform_instance_name = "crow-sandbox-iq1"
+
   vnets = {
     "hub" = {
       name = "hub"
@@ -29,12 +31,22 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "shared_network_configuration" {
-  source         = "../../src/vnets"
-  vnets          = local.vnets
-  location       = azurerm_resource_group.example.location
-  resource_group = azurerm_resource_group.example
+  source = "../../src/vnets"
+
+  platform_instance_name = local.platform_instance_name
+  vnets                  = local.vnets
+  location               = azurerm_resource_group.example.location
+  resource_group         = azurerm_resource_group.example
 }
 
-output "results" {
-  value = module.shared_network_configuration
+output "shared_network_configuration_vnet_ids" {
+  value = values(module.shared_network_configuration.vnets)[*].id
+}
+
+output "shared_network_configuration_vnet_keys" {
+  value = keys(module.shared_network_configuration.vnets)
+}
+
+output "shared_network_configuration_vnet_map" {
+  value = module.shared_network_configuration.vnets
 }
