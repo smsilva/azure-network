@@ -1,3 +1,8 @@
+variable "platform_instance_name" {
+  type        = string
+  description = "Platform Instance Name"
+}
+
 variable "name" {
   type        = string
   description = "Azure Virtual Network (VNET) Name"

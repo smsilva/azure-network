@@ -22,27 +22,31 @@ locals {
   ])
 
   vnets_map = {
-    for vnet in local.vnets : "${vnet.name}" => vnet
+    for vnet in local.vnets : vnet.name => vnet
   }
 
   subnets_map = {
-    for subnet in local.subnets : "${subnet.name}" => subnet
+    for subnet in local.subnets : subnet.name => subnet
   }
 }
 
 module "vnets" {
-  for_each       = local.vnets_map
-  source         = "../vnet"
-  name           = each.value.name
-  cidr           = [each.value.cidr]
-  resource_group = var.resource_group
+  for_each = local.vnets_map
+  source   = "../vnet"
+
+  platform_instance_name = var.platform_instance_name
+  name                   = each.value.name
+  cidr                   = [each.value.cidr]
+  resource_group         = var.resource_group
 }
 
 module "subnets" {
-  for_each       = local.subnets_map
-  source         = "../subnet"
-  name           = each.value.name
-  cidrs          = [each.value.cidr]
-  vnet           = module.vnets[each.value.vnet.name].vnet
-  resource_group = var.resource_group
+  for_each = local.subnets_map
+  source   = "../subnet"
+
+  platform_instance_name = var.platform_instance_name
+  name                   = each.value.name
+  cidrs                  = [each.value.cidr]
+  vnet                   = module.vnets[each.value.vnet.name].vnet
+  resource_group         = var.resource_group
 }

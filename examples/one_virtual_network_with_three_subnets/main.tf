@@ -3,6 +3,9 @@ provider "azurerm" {
 }
 
 locals {
+  platform_instance_name = "crow-sandbox-iq1"
+  location               = "centralus"
+
   subnets = [
     { cidr = "10.0.1.0/29", name = "AzureBastionSubnet" },
     { cidr = "10.0.2.0/27", name = "snet-vpn-gateway" },
@@ -22,18 +25,20 @@ resource "azurerm_resource_group" "example" {
 module "vnet_hub_example" {
   source = "../../src/vnet"
 
-  name           = "vnet-hub"
-  cidr           = ["10.0.0.0/20"]
-  resource_group = azurerm_resource_group.example
+  platform_instance_name = local.platform_instance_name
+  name                   = "vnet-hub"
+  cidr                   = ["10.0.0.0/20"]
+  resource_group         = azurerm_resource_group.example
 }
 
 module "vnet_hub_example_subnets" {
-  for_each       = local.subnets_map
-  source         = "../../src/subnet"
-  name           = each.value.name
-  cidrs          = [each.value.cidr]
-  vnet           = module.vnet_hub_example
-  resource_group = azurerm_resource_group.example
+  for_each = local.subnets_map
+  source   = "../../src/subnet"
+
+  name                   = each.value.name
+  cidrs                  = [each.value.cidr]
+  vnet                   = module.vnet_hub_example
+  resource_group         = azurerm_resource_group.example
 }
 
 output "module_vnet_hub_example_outputs" {
