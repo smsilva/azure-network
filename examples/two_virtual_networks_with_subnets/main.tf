@@ -4,6 +4,7 @@ provider "azurerm" {
 
 locals {
   platform_instance_name = "crow-sandbox-iq1"
+  location               = "centralus"
 
   vnets = {
     "hub" = {
@@ -25,18 +26,12 @@ locals {
   }
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "example"
-  location = "centralus"
-}
-
 module "shared_network_configuration" {
   source = "../../src/vnets"
 
   platform_instance_name = local.platform_instance_name
   vnets                  = local.vnets
-  location               = azurerm_resource_group.example.location
-  resource_group         = azurerm_resource_group.example
+  location               = local.location
 }
 
 output "shared_network_configuration_vnet_ids" {
