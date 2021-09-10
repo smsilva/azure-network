@@ -1,0 +1,12 @@
+#!/bin/bash
+
+while read -r DIRECTORY; do
+  EXAMPLE_DIR="${PWD}/"$(basename "${DIRECTORY}")
+
+  echo "${EXAMPLE_DIR}"
+
+  terraform -chdir="${EXAMPLE_DIR}" init > /dev/null
+  terraform -chdir="${EXAMPLE_DIR}" apply -auto-approve
+  terraform -chdir="${EXAMPLE_DIR}" destroy -auto-approve
+
+done <<< "$(find . -mindepth 1 -maxdepth 1 -type d)"
