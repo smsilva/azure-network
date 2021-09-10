@@ -24,4 +24,5 @@ variable "subnets" {
     name  = string
   }))
   description = "Subnet Object List"
+  default     = []
 }

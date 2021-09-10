@@ -24,7 +24,6 @@ module "vnet_private" {
   location               = local.location
   name                   = "vnet-pvt"
   cidr                   = ["10.0.0.0/20"]
-  subnets                = []
 }
 
 module "vnet_private_subnets" {
