@@ -14,3 +14,7 @@ module "vnet" {
   cidr           = ["10.0.0.0/20"]
   resource_group = azurerm_resource_group.example
 }
+
+output "vnet" {
+  value = module.vnet
+}

@@ -12,3 +12,7 @@ output "id" {
 output "name" {
   value = azurerm_virtual_network.default.name
 }
+
+output "virtual_network" {
+  value = azurerm_virtual_network.default
+}
