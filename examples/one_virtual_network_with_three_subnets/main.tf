@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "example" {
   location = "centralus"
 }
 
-module "vnet" {
+module "vnet_hub_example" {
   source = "../../src/vnet"
 
   name           = "vnet-hub"
@@ -27,11 +27,19 @@ module "vnet" {
   resource_group = azurerm_resource_group.example
 }
 
-module "subnets" {
+module "vnet_hub_example_subnets" {
   for_each       = local.subnets_map
   source         = "../../src/subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
   vnet           = module.vnet
   resource_group = azurerm_resource_group.example
+}
+
+output "module_vnet_hub_example_outputs" {
+  value = module.vnet_hub_example
+}
+
+output "module_vnet_hub_example_subnets_outputs" {
+  value = module.vnet_hub_example_subnets
 }

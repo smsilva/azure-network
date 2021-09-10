@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "example" {
   location = "centralus"
 }
 
-module "vnet" {
+module "vnet_hub_example" {
   source = "../../src/vnet"
 
   name           = "vnet-hub"
@@ -15,6 +15,6 @@ module "vnet" {
   resource_group = azurerm_resource_group.example
 }
 
-output "vnet" {
-  value = module.vnet
+output "module_vnet_hub_example_outputs" {
+  value = module.vnet_hub_example
 }
