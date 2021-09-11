@@ -17,6 +17,14 @@ output "virtual_network" {
   value = azurerm_virtual_network.default
 }
 
+output "instance" {
+  value = azurerm_virtual_network.default
+}
+
 output "resource_group" {
   value = azurerm_resource_group.default
+}
+
+output "subnets" {
+  value = module.subnets
 }

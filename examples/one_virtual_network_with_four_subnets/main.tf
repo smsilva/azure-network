@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 variable "platform_instance_name" {
-  type = string
+  type    = string
+  default = "crow-sandbox-a3b"
 }
 
 locals {
@@ -33,4 +34,8 @@ module "vnet_example" {
 
 output "module_vnet_example_outputs" {
   value = module.vnet_example
+}
+
+output "subnet_aks_id" {
+  value = module.vnet_example.subnets["aks"].instance.id
 }
