@@ -3,7 +3,7 @@
 create() {
   TARGET_SOURCE_DIRECTORY="${1}"
   terraform -chdir="${TARGET_SOURCE_DIRECTORY}" init > /dev/null
-  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" apply -auto-approve
+  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" apply -auto-approve -var="platform_instance_name=crow-sandbox-a3b"
 }
 
 destroy() {

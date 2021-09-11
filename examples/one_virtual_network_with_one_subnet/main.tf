@@ -2,15 +2,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "random_string" "platform_instance_id" {
-  length      = 3
-  min_numeric = 1
-  special     = false
-  upper       = false
+variable "platform_instance_name" {
+  type = string
 }
 
 locals {
-  platform_instance_name  = "crow-sandbox-${random_string.platform_instance_id.result}"
+  platform_instance_name  = var.platform_instance_name
   location                = "centralus"
   virtual_network_cidrs   = ["10.0.0.0/8"]
   virtual_network_subnets = [{ cidr = "10.140.0.0/16", name = "AzureBastionSubnet" }]
