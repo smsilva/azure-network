@@ -2,8 +2,15 @@ provider "azurerm" {
   features {}
 }
 
+resource "random_string" "platform_instance_id" {
+  length      = 3
+  min_numeric = 1
+  special     = false
+  upper       = false
+}
+
 locals {
-  platform_instance_name = "crow-sandbox-iq1"
+  platform_instance_name = "crow-sandbox-${random_string.platform_instance_id.result}"
   location               = "centralus"
 
   vnets = {

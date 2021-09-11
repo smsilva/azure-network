@@ -2,23 +2,30 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  platform_instance_name  = "crow-sandbox-iq1"
-  location                = "centralus"
-  virtual_network_cidrs   = ["10.0.0.0/20"]
-  virtual_network_subnets = [{ cidr = "10.0.1.0/29", name = "AzureBastionSubnet" }]
+resource "random_string" "platform_instance_id" {
+  length      = 3
+  min_numeric = 1
+  special     = false
+  upper       = false
 }
 
-module "vnet_aks" {
+locals {
+  platform_instance_name  = "crow-sandbox-${random_string.platform_instance_id.result}"
+  location                = "centralus"
+  virtual_network_cidrs   = ["10.0.0.0/8"]
+  virtual_network_subnets = [{ cidr = "10.140.0.0/16", name = "AzureBastionSubnet" }]
+}
+
+module "vnet_example" {
   source = "../../src/vnet"
 
   platform_instance_name = local.platform_instance_name
   location               = local.location
-  name                   = "vnet-aks"
+  name                   = "vnet-example"
   cidrs                  = local.virtual_network_cidrs
   subnets                = local.virtual_network_subnets
 }
 
-output "module_vnet_aks_outputs" {
-  value = module.vnet_aks
+output "module_vnet_example_outputs" {
+  value = module.vnet_example
 }
