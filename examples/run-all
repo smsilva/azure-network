@@ -22,5 +22,6 @@ apply_all() {
   done <<< "$(find . -mindepth 1 -maxdepth 1 -type d)"
 }
 
-apply_all create
-apply_all destroy
+COMMAND="${1}"
+
+apply_all "${COMMAND?}"
