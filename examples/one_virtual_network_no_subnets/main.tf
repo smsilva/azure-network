@@ -2,20 +2,31 @@ provider "azurerm" {
   features {}
 }
 
+resource "random_string" "platform_instance_id" {
+  length      = 3
+  min_numeric = 1
+  special     = false
+  upper       = false
+}
+
 locals {
-  platform_instance_name = "crow-sandbox-iq1"
+  platform_instance_name = "crow-sandbox-${random_string.platform_instance_id.result}"
   location               = "centralus"
 }
 
-module "vnet_hub_example" {
+module "platform" {
+  source = "../"
+}
+
+module "vnet_example" {
   source = "../../src/vnet"
 
   platform_instance_name = local.platform_instance_name
   location               = local.location
-  name                   = "vnet-hub"
-  cidr                   = ["10.0.0.0/20"]
+  name                   = "vnet-example"
+  cidrs                  = ["10.0.0.0/20"]
 }
 
-output "module_vnet_hub_example_outputs" {
-  value = module.vnet_hub_example
+output "module_vnet_example_outputs" {
+  value = module.vnet_example
 }
