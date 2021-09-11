@@ -8,7 +8,7 @@ create() {
 
 destroy() {
   TARGET_SOURCE_DIRECTORY="${1}"
-  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" destroy -auto-approve
+  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" destroy -auto-approve &
 }
 
 apply_all() {
