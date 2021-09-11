@@ -8,7 +8,7 @@ variable "name" {
   description = "Azure Virtual Network (VNET) Name"
 }
 
-variable "cidr" {
+variable "cidrs" {
   type        = list(string)
   description = "Azure Virtual Network CIDR. Ex: 10.0.0.0/8"
 }
@@ -20,7 +20,7 @@ variable "location" {
 
 variable "subnets" {
   type = list(object({
-    cidir = string
+    cidr = string
     name  = string
   }))
   description = "Subnet Object List"
