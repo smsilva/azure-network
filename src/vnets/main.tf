@@ -37,7 +37,7 @@ module "vnets" {
   platform_instance_name = var.platform_instance_name
   location               = var.location
   name                   = each.value.name
-  cidr                   = [each.value.cidr]
+  cidrs                  = [each.value.cidr]
 }
 
 module "subnets" {
