@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 variable "platform_instance_name" {
-  type = string
+  type    = string
+  default = "crow-sandbox-a3b"
 }
 
 locals {
