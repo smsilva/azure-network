@@ -4,7 +4,7 @@ provider "azurerm" {
 
 variable "platform_instance_name" {
   type    = string
-  default = "crow-sandbox-a3b"
+  default = "wasp-sandbox-iq1"
 }
 
 locals {
