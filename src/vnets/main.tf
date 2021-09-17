@@ -47,4 +47,8 @@ module "subnets" {
   name  = each.value.name
   cidrs = [each.value.cidr]
   vnet  = module.vnets[each.value.vnet.name]
+
+  depends_on = [
+    module.vnets
+  ]
 }
