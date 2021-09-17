@@ -4,8 +4,11 @@ provider "azurerm" {
 
 variable "platform_instance_name" {
   type    = string
-  default = "wasp-sandbox-iq1"
+  default = "wasp-sbx-yi0"
 }
+
+# Secure traffic with a web application firewall (WAF)
+# https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-network#secure-traffic-with-a-web-application-firewall-waf
 
 locals {
   platform_instance_name = var.platform_instance_name
@@ -47,6 +50,11 @@ output "shared_network_configuration_vnet_keys" {
   value = keys(module.shared_network_configuration.vnets)
 }
 
-output "shared_network_configuration_vnet_map" {
-  value = module.shared_network_configuration.vnets
+output "shared_network_configuration_subnets" {
+  value = [
+    for subnet in values(module.shared_network_configuration.subnets)[*].instance : {
+      id   = subnet.id
+      name = subnet.name
+    }
+  ]
 }
