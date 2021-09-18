@@ -15,20 +15,22 @@ variable "platform_instance_name" {
 
 /*
 
-VNET           SUBNET                       CIDR              HOST_MIN       HOST_MAX           HOSTS
+VNET           SUBNET                       CIDR              HOST_MIN       HOST_MAX           HOSTS       HOSTS
+                                                                                                COUNT   AVAILABLE
 
 hub                                         10.200.0.0/24     10.200.0.1     10.200.0.254         254
 
-               AzureFirewallSubnet          10.200.0.0/26     10.200.0.1     10.200.0.62           62
-               GatewaySubnet                10.200.0.0/26     10.200.0.65    10.200.0.94           30
-               AzureBastionSubnet           10.200.0.96/27    10.200.0.97    10.200.0.126          30
+               AzureFirewallSubnet          10.200.0.0/26     10.200.0.1     10.200.0.62           62          59
+               GatewaySubnet                10.200.0.0/26     10.200.0.65    10.200.0.94           30           -       // availability dependent on dynamic use
+               AzureBastionSubnet           10.200.0.96/27    10.200.0.97    10.200.0.126          30          27
 
 spoke-one                                   10.240.0.0/13     10.240.0.1     10.247.255.254   524.286
 
-              snet-cluternodes              10.240.0.0/22     10.240.0.1     10.240.3.254       1.022
-              snet-cluisteringressservices  10.240.4.0/28     10.240.4.1     10.240.4.14           14
-              snet-applicationgateways      10.240.4.16/28    10.240.4.17    10.240.4.30           14
+              snet-cluternodes              10.240.0.0/22     10.240.0.1     10.240.3.254       1.022       1.019
+              snet-cluisteringressservices  10.240.4.0/28     10.240.4.1     10.240.4.14           14          11
+              snet-applicationgateways      10.240.4.16/28    10.240.4.17    10.240.4.30           14          11
 */
+
 locals {
   platform_instance_name = var.platform_instance_name
   location               = "centralus"

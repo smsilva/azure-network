@@ -1,15 +1,15 @@
 #!/bin/bash
-export PLATFORM_INSTANCE_NAME="crow-sandbox-a3b"
+export PLATFORM_INSTANCE_NAME="wasp-sbx"
 
 create() {
   TARGET_SOURCE_DIRECTORY="${1}"
   terraform -chdir="${TARGET_SOURCE_DIRECTORY}" init > /dev/null
-  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" apply -auto-approve -var="platform_instance_name=${PLATFORM_INSTANCE_NAME}"
+  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" apply -auto-approve -var="platform_instance_name=${PLATFORM_INSTANCE_NAME}-${RANDOM}" &
 }
 
 destroy() {
   TARGET_SOURCE_DIRECTORY="${1}"
-  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" destroy -auto-approve -var="platform_instance_name=${PLATFORM_INSTANCE_NAME}" &
+  terraform -chdir="${TARGET_SOURCE_DIRECTORY}" destroy -auto-approve -var="platform_instance_name=${PLATFORM_INSTANCE_NAME}-${RANDOM}" &
 }
 
 apply_all() {
