@@ -1,14 +1,14 @@
 variable "name" {
-  type    = string
-  default = "vnet"
+  type        = string
+  description = "Azure Virtual Network (vnet) Name"
 }
 
 variable "location" {
-  type    = string
-  default = "centralus"
+  type        = string
+  description = "Azure Virtual Network (vnet) Location"
 }
 
 variable "resource_group_name" {
-  type    = string
-  default = ""
+  type        = string
+  description = "Azure Virtual Network (vnet) Resource Group Name"
 }
