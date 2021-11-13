@@ -1,3 +1,9 @@
+## 3.0.1 (2021-11-13)
+
+### Fix
+
+- **variables**: remove reference to location variable
+
 ## 3.0.0 (2021-11-13)
 
 ### Fix
