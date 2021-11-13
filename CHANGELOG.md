@@ -1,3 +1,13 @@
+## 2.0.0 (2021-11-13)
+
+### Fix
+
+- **resource-group**: Not creating a resource group
+
+### BREAKING CHANGE
+
+- No Resource Group is created now it must exists before.
+
 ## 1.1.0 (2021-11-13)
 
 ### Feat
