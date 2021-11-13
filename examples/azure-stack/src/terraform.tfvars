@@ -1,3 +1,3 @@
 resource_group_name = "wasp"
 name                = "wasp-vnet-private"
-location            = "centralus"
+location            = "eastus2"
