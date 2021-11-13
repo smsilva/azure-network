@@ -1,8 +1,7 @@
 resource "random_string" "vnet_id" {
   keepers = {
-    platform_instance_name = var.platform_instance_name
-    name                   = var.name
-    location               = var.location
+    name     = var.name
+    location = var.location
   }
 
   length      = 3
@@ -13,7 +12,7 @@ resource "random_string" "vnet_id" {
 }
 
 locals {
-  virtual_network_name = "${var.platform_instance_name}-${var.name}-${random_string.vnet_id.result}"
+  virtual_network_name = "${var.name}-${random_string.vnet_id.result}"
 
   subnets_map = {
     for subnet in var.subnets : subnet.name => subnet

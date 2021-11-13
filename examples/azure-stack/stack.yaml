@@ -1,0 +1,4 @@
+name: azure-network
+terraform:
+  version: 1.0.10
+  backend: azurerm

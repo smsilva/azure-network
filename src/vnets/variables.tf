@@ -1,6 +1,6 @@
-variable "platform_instance_name" {
+variable "name" {
   type        = string
-  description = "Platform Instance Name"
+  description = "Azure Virtual Network (VNET) Name"
 }
 
 variable "location" {
