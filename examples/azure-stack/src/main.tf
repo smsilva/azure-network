@@ -15,7 +15,6 @@ module "vnet_example" {
   source = "git@github.com:smsilva/azure-network.git//src/vnet?ref=main"
 
   name                = var.name
-  location            = data.azurerm_resource_group.default.location
   cidrs               = local.virtual_network_cidrs
   subnets             = local.virtual_network_subnets
   resource_group_name = data.azurerm_resource_group.default.name
