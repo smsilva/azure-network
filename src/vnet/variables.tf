@@ -8,11 +8,6 @@ variable "resource_group_name" {
   default = ""
 }
 
-variable "location" {
-  type        = string
-  description = "Azure Location for Virtual Network"
-}
-
 variable "cidrs" {
   type        = list(string)
   description = "Azure Virtual Network CIDR. Ex: 10.0.0.0/8"
