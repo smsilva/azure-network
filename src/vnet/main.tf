@@ -1,34 +1,21 @@
-resource "random_string" "vnet_id" {
-  keepers = {
-    name     = var.name
-    location = var.location
-  }
-
-  length      = 3
-  min_numeric = 1
-  min_lower   = 1
-  special     = false
-  upper       = false
-}
-
 locals {
-  virtual_network_name = "${var.name}-${random_string.vnet_id.result}"
+  virtual_network_name = var.name
+  resource_group_name = var.resource_group_name != "" ? var.resource_group_name : var.name
 
   subnets_map = {
     for subnet in var.subnets : subnet.name => subnet
   }
 }
 
-resource "azurerm_resource_group" "default" {
-  name     = local.virtual_network_name
-  location = var.location
+data "azurerm_resource_group" "default" {
+  name = local.resource_group_name
 }
 
 resource "azurerm_virtual_network" "default" {
   name                = local.virtual_network_name
   address_space       = var.cidrs
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
+  location            = data.azurerm_resource_group.default.location
+  resource_group_name = data.azurerm_resource_group.default.name
 }
 
 module "subnets" {
@@ -41,8 +28,8 @@ module "subnets" {
     id   = azurerm_virtual_network.default.id
     name = azurerm_virtual_network.default.name
     resource_group = {
-      id   = azurerm_resource_group.default.id
-      name = azurerm_resource_group.default.name
+      id   = data.azurerm_resource_group.default.id
+      name = data.azurerm_resource_group.default.name
     }
   }
 }

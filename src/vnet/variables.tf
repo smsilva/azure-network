@@ -3,6 +3,11 @@ variable "name" {
   description = "Azure Virtual Network (VNET) Name"
 }
 
+variable "resource_group_name" {
+  type    = string
+  default = ""
+}
+
 variable "location" {
   type        = string
   description = "Azure Location for Virtual Network"
@@ -16,7 +21,7 @@ variable "cidrs" {
 variable "subnets" {
   type = list(object({
     cidr = string
-    name  = string
+    name = string
   }))
   description = "Subnet Object List"
   default     = []
