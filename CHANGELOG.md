@@ -1,3 +1,9 @@
+## 3.0.3 (2021-12-03)
+
+### Refactor
+
+- **folders**: move stack folder to root
+
 ## 3.0.2 (2021-11-16)
 
 ### Refactor
