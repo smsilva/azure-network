@@ -26,7 +26,6 @@ module "vnet" {
   source = "../../src/vnet"
 
   name                = local.virtual_network_name
-  location            = local.location
   cidrs               = local.virtual_network_cidrs
   subnets             = local.virtual_network_subnets
   resource_group_name = azurerm_resource_group.default.name
