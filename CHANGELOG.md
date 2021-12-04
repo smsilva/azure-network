@@ -1,3 +1,9 @@
+## 3.0.4 (2021-12-03)
+
+### Refactor
+
+- **examples**: hubspoke
+
 ## 3.0.3 (2021-12-03)
 
 ### Refactor
