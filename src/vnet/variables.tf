@@ -4,8 +4,7 @@ variable "name" {
 }
 
 variable "resource_group_name" {
-  type    = string
-  default = ""
+  type = string
 }
 
 variable "cidrs" {

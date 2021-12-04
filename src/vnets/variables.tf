@@ -3,9 +3,8 @@ variable "name" {
   description = "Azure Virtual Network (VNET) Name"
 }
 
-variable "location" {
-  default     = "centralus"
-  description = "Azure Virtual Network (VNET) Location"
+variable "resource_group_name" {
+  type = string
 }
 
 variable "vnets" {
