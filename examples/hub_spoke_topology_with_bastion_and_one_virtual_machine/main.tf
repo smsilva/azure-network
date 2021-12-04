@@ -1,12 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
-variable "platform_instance_name" {
-  type    = string
-  default = "wasp-sbx-yi0"
-}
-
 # Secure traffic with a web application firewall (WAF)
 # https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-network#secure-traffic-with-a-web-application-firewall-waf
 
@@ -32,8 +23,7 @@ spoke-one                                   10.240.0.0/13     10.240.0.1     10.
 */
 
 locals {
-  platform_instance_name = var.platform_instance_name
-  location               = "centralus"
+  location = "centralus"
 
   vnets = {
     "hub" = {
@@ -63,21 +53,4 @@ module "shared_network_configuration" {
   platform_instance_name = local.platform_instance_name
   vnets                  = local.vnets
   location               = local.location
-}
-
-output "shared_network_configuration_vnet_ids" {
-  value = values(module.shared_network_configuration.vnets)[*].id
-}
-
-output "shared_network_configuration_vnet_keys" {
-  value = keys(module.shared_network_configuration.vnets)
-}
-
-output "shared_network_configuration_subnets" {
-  value = [
-    for subnet in values(module.shared_network_configuration.subnets)[*].instance : {
-      id   = subnet.id
-      name = subnet.name
-    }
-  ]
 }

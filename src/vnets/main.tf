@@ -34,9 +34,9 @@ module "vnets" {
   for_each = local.vnets_map
   source   = "../vnet"
 
-  location = var.location
-  name     = each.value.name
-  cidrs    = [each.value.cidr]
+  resource_group_name = var.resource_group_name
+  name                = each.value.name
+  cidrs               = [each.value.cidr]
 }
 
 module "subnets" {
