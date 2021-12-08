@@ -2,17 +2,12 @@ provider "azurerm" {
   features {}
 }
 
-variable "platform_instance_name" {
-  type    = string
-  default = "wasp-sbx-yi0"
-}
-
 # Secure traffic with a web application firewall (WAF)
 # https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-network#secure-traffic-with-a-web-application-firewall-waf
 
 locals {
-  platform_instance_name = var.platform_instance_name
-  location               = "centralus"
+  virtual_network_location = "centralus"
+  virtual_network_name     = "wasp-vnet-example-4"
 
   vnets = {
     "hub" = {
@@ -34,12 +29,21 @@ locals {
   }
 }
 
+resource "azurerm_resource_group" "default" {
+  name     = local.virtual_network_name
+  location = local.virtual_network_location
+}
+
 module "shared_network_configuration" {
   source = "../../src/vnets"
 
-  platform_instance_name = local.platform_instance_name
-  vnets                  = local.vnets
-  location               = local.location
+  name                = local.virtual_network_name
+  vnets               = local.vnets
+  resource_group_name = azurerm_resource_group.default.name
+
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
 
 output "shared_network_configuration_vnet_ids" {

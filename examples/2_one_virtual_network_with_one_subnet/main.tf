@@ -2,16 +2,8 @@ provider "azurerm" {
   features {}
 }
 
-resource "random_string" "example" {
-  length      = 3
-  min_numeric = 1
-  min_lower   = 1
-  special     = false
-  upper       = false
-}
-
 locals {
-  virtual_network_name    = "wasp-vnet-example-${random_string.example.result}"
+  virtual_network_name    = "wasp-vnet-example-2"
   location                = "centralus"
   virtual_network_cidrs   = ["10.0.0.0/8"]
   virtual_network_subnets = [{ cidr = "10.140.0.0/16", name = "AzureBastionSubnet" }]
@@ -29,7 +21,10 @@ module "vnet" {
   cidrs               = local.virtual_network_cidrs
   subnets             = local.virtual_network_subnets
   resource_group_name = azurerm_resource_group.default.name
-  depends_on          = [azurerm_resource_group.default]
+
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
 
 output "vnet_id" {

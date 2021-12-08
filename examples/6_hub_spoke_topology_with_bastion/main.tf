@@ -23,7 +23,8 @@ spoke-one                                   10.240.0.0/13     10.240.0.1     10.
 */
 
 locals {
-  location = "centralus"
+  virtual_network_location = "centralus"
+  virtual_network_name     = var.virtual_network_name
 
   vnets = {
     "hub" = {
@@ -47,10 +48,19 @@ locals {
   }
 }
 
+resource "azurerm_resource_group" "default" {
+  name     = local.virtual_network_name
+  location = local.virtual_network_location
+}
+
 module "shared_network_configuration" {
   source = "../../src/vnets"
 
-  platform_instance_name = local.platform_instance_name
-  vnets                  = local.vnets
-  location               = local.location
+  name                = local.virtual_network_name
+  vnets               = local.vnets
+  resource_group_name = azurerm_resource_group.default.name
+
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
