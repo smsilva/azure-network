@@ -1,3 +1,9 @@
+## 3.0.5 (2021-12-08)
+
+### Refactor
+
+- **tests**: refactor to assure that tests are passing
+
 ## 3.0.4 (2021-12-03)
 
 ### Refactor
