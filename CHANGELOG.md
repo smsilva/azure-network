@@ -1,3 +1,10 @@
+## 3.0.6 (2022-05-21)
+
+### Refactor
+
+- Examples from 2 to 6
+- Update variables descriptions and example 1
+
 ## 3.0.5 (2021-12-08)
 
 ### Refactor
