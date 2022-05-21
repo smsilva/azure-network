@@ -1,6 +1,6 @@
 locals {
   virtual_network_name = var.name
-  resource_group_name = var.resource_group_name != "" ? var.resource_group_name : var.name
+  resource_group_name  = var.resource_group_name != "" ? var.resource_group_name : var.name
 
   subnets_map = {
     for subnet in var.subnets : subnet.name => subnet

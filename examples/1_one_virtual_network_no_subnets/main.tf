@@ -1,19 +1,23 @@
-provider "azurerm" {
-  features {}
+resource "random_string" "vnet_id" {
+  length      = 3
+  min_numeric = 1
+  min_lower   = 1
+  special     = false
+  upper       = false
 }
 
 locals {
-  virtual_network_name  = "wasp-vnet-example-1"
-  location              = "centralus"
-  virtual_network_cidrs = ["10.0.0.0/8"]
+  virtual_network_name     = "wasp-vnet-example-1-${random_string.vnet_id.result}"
+  virtual_network_location = "centralus"
+  virtual_network_cidrs    = ["10.0.0.0/8"]
 }
 
 resource "azurerm_resource_group" "default" {
   name     = local.virtual_network_name
-  location = "eastus2"
+  location = local.virtual_network_location
 }
 
-module "vnet_example" {
+module "vnet" {
   source = "../../src/vnet"
 
   name                = local.virtual_network_name
@@ -25,6 +29,6 @@ module "vnet_example" {
   ]
 }
 
-output "module_vnet_example_outputs" {
-  value = module.vnet_example
+output "vnet_id" {
+  value = module.vnet.instance.id
 }

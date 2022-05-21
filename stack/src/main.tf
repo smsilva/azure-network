@@ -1,13 +1,5 @@
-resource "random_string" "vnet_id" {
-  length      = 3
-  min_numeric = 1
-  min_lower   = 1
-  special     = false
-  upper       = false
-}
-
 locals {
-  virtual_network_name = "${var.virtual_network_name}-${random_string.vnet_id.result}"
+  virtual_network_name = var.virtual_network_name
   resource_group_name  = var.resource_group_name != "" ? var.resource_group_name : local.virtual_network_name
 }
 
