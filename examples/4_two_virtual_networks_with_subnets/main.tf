@@ -1,13 +1,17 @@
-provider "azurerm" {
-  features {}
+resource "random_string" "vnet_id" {
+  length      = 3
+  min_numeric = 1
+  min_lower   = 1
+  special     = false
+  upper       = false
 }
 
 # Secure traffic with a web application firewall (WAF)
 # https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-network#secure-traffic-with-a-web-application-firewall-waf
 
 locals {
+  virtual_network_name     = "wasp-vnet-example-4-${random_string.vnet_id.result}"
   virtual_network_location = "centralus"
-  virtual_network_name     = "wasp-vnet-example-4"
 
   vnets = {
     "hub" = {

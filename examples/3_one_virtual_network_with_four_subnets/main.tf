@@ -1,10 +1,14 @@
-provider "azurerm" {
-  features {}
+resource "random_string" "vnet_id" {
+  length      = 3
+  min_numeric = 1
+  min_lower   = 1
+  special     = false
+  upper       = false
 }
 
 locals {
+  virtual_network_name     = "wasp-vnet-example-3-${random_string.vnet_id.result}"
   virtual_network_location = "centralus"
-  virtual_network_name     = "wasp-vnet-example-3"
   virtual_network_cidrs    = ["10.0.0.0/8"]
 
   subnets = [
@@ -33,8 +37,8 @@ module "vnet" {
   ]
 }
 
-output "module_vnet_outputs" {
-  value = module.vnet
+output "vnet_id" {
+  value = module.vnet.instance.id
 }
 
 output "subnet_aks_id" {

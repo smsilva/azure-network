@@ -21,7 +21,7 @@ resource "azurerm_bastion_host" "hub_bastion" {
     public_ip_address_id = azurerm_public_ip.pip_hub_bastion.id
   }
 }
-#
+
 resource "azurerm_virtual_network_peering" "hub_to_spoke_one" {
   name                      = "hubtospokeone"
   resource_group_name       = module.shared_network_configuration.vnets["hub"].resource_group.name
